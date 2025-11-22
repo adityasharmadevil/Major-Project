@@ -15,11 +15,23 @@ import java.util.function.Function;
 @Component
 public class JwtConfig {
 
+    private static final int MIN_SECRET_LENGTH = 32;
+
     @Value("${jwt.secret}")
     private String secret;
 
     @Value("${jwt.expiration}")
     private Long expiration;
+
+    @jakarta.annotation.PostConstruct
+    public void validateSecret() {
+        if (secret == null || secret.length() < MIN_SECRET_LENGTH) {
+            throw new IllegalStateException(
+                String.format("JWT secret must be at least %d characters long. Current length: %d",
+                    MIN_SECRET_LENGTH, secret != null ? secret.length() : 0)
+            );
+        }
+    }
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes());
