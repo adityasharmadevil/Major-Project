@@ -9,6 +9,14 @@ import {
   FiRefreshCw,
 } from 'react-icons/fi';
 
+const formatRuleLabel = (str) => {
+  if (!str) return '';
+  if (str.toLowerCase().includes('usb')) return 'Block USB';
+
+  const words = str.replace(/([A-Z])/g, ' $1').trim().split(' ');
+  return words.map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+};
+
 const Policies = () => {
   const [policies, setPolicies] = useState([]);
   const [devices, setDevices] = useState([]);
@@ -223,7 +231,7 @@ const Policies = () => {
                     <FiXCircle className="w-4 h-4 text-gray-400" />
                   )}
                   <span className={value ? 'text-gray-900' : 'text-gray-500'}>
-                    {key.replace(/([A-Z])/g, ' $1').trim()}
+                    {formatRuleLabel(key)}
                   </span>
                 </div>
               ))}
@@ -321,7 +329,7 @@ const Policies = () => {
                         className="w-5 h-5 text-primary-600 border-gray-300 rounded focus:ring-primary-500"
                       />
                       <span className="text-gray-700">
-                        {key.replace(/([A-Z])/g, ' $1').trim()}
+                        {formatRuleLabel(key)}
                       </span>
                     </label>
                   ))}
