@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: dids-backend
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: dids
+
+jwt:
+  secret: your-secret-key-change-this-in-production-use-a-strong-random-string
+  expiration: 86400000
+
+cors:
+  allowed-origins: http://localhost:3000
+
+logging:
+  level:
+    com.dids: DEBUG
+    org.springframework.security: DEBUG
+

@@ -1,0 +1,26 @@
+package com.dids.model;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.List;
+import java.util.Map;
+
+@Document(collection = "policies")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Policy {
+    @Id
+    private String id;
+    
+    private String name;
+    private String description;
+    private Map<String, Boolean> rules;
+    private Boolean active;
+    private List<String> deployedDevices;
+}
+
